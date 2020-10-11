@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "packupdater",
+  "name": "Pack Updater",
+  "description": "Checks a url for a JSON file for the latest version, and displays a GUI screen if an update has been found.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["Jonathing"],
+  "credits": "CalaMariGold for having patience with me as I figure out my shit <3.",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

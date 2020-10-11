@@ -21,8 +21,8 @@ public class PackUpdater
 {
 
     public static final String MOD_ID = "packupdater";
-    public static final String MOD_NAME = "PackUpdate";
-    public static final String VERSION = "2020.1-1.3.5";
+    public static final String MOD_NAME = "Pack Updater";
+    public static final String VERSION = "0.1.0";
 
     public static boolean needsUpdate = true; // TODO: set to false once CF API is working
 
