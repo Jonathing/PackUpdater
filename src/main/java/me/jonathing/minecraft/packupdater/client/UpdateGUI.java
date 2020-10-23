@@ -1,5 +1,6 @@
-package codes.colmenares.minecraft.packupdater.client;
+package me.jonathing.minecraft.packupdater.client;
 
+import me.jonathing.minecraft.packupdater.PackUpdater;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -32,11 +33,14 @@ public class UpdateGUI extends GuiScreen
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        String title = "Today's your lucky day!";
+        String title = "An update is available for Rebirth of the Night!";
         String[] description;
 
-        description = ("Rebirth of the Night has a new update!\n"
-                + "This is a test gui lol\n\n\n").split("\n");
+        description = (String.format("Rebirth of the Night has a new update: Version %s\n", PackUpdater.getNewVersion())
+                + "Make sure you visit the modpack's CurseForge page soon to grab the latest\n"
+                + "update so you don't miss out on the new goodies the developers have added!\n\n"
+                + "A note from Jonathing: Although 99% of this mod is complete, I still need\n"
+                + "to add the configuration file, but other than that, it works!\n\n\n").split("\n");
 
         ScaledResolution screenRes = new ScaledResolution(this.mc);
 
