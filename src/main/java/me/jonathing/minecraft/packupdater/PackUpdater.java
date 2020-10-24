@@ -31,6 +31,7 @@ public class PackUpdater
 
     private static boolean needsUpdate = false;
     private static String newVersion = "UNKNOWN";
+    private static String CFLink = "https://jonathing.me/";
 
     public static final Logger LOGGER = LogManager.getLogger("Pack Updater");
 
@@ -114,6 +115,11 @@ public class PackUpdater
     public static boolean doesNeedUpdate()
     {
         return needsUpdate;
+    }
+
+    public static String getCFLink()
+    {
+        return CFLink;
     }
 
     private static class PackVersion
