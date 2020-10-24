@@ -93,4 +93,18 @@ public class UpdateGUI extends GuiScreen
         super.actionPerformed(button);
     }
 
+    private void openWebLink(URI url)
+    {
+        try
+        {
+            Class<?> oclass = Class.forName("java.awt.Desktop");
+            Object object = oclass.getMethod("getDesktop").invoke(null);
+            oclass.getMethod("browse", URI.class).invoke(object, url);
+        }
+        catch (Throwable throwable1)
+        {
+            Throwable throwable = throwable1.getCause();
+            PackUpdater.LOGGER.error("Couldn't open link: {}", throwable == null ? "<UNKNOWN>" : throwable.getMessage());
+        }
+    }
 }

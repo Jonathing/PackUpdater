@@ -27,7 +27,7 @@ public class PackUpdater
 
     public static final String MOD_ID = "packupdater";
     public static final String MOD_NAME = "Pack Updater";
-    public static final String VERSION = "0.1.0";
+    public static final String VERSION = "0.1.1";
 
     private static boolean needsUpdate = false;
     private static String newVersion = "UNKNOWN";

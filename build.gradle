@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 
-version = '0.1.0'
+version = '0.1.1'
 group = 'me.jonathing.minecraft.packupdater' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'packupdater'
 
@@ -29,7 +29,7 @@ minecraft {
     mappings channel: 'stable', version: '39-1.12'
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
