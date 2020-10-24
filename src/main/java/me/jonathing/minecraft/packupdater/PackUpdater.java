@@ -1,6 +1,8 @@
 package me.jonathing.minecraft.packupdater;
 
 import com.google.gson.Gson;
+import me.jonathing.minecraft.packupdater.config.ConfigHandler;
+import me.jonathing.minecraft.packupdater.config.ConfigVariables;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -27,11 +29,8 @@ public class PackUpdater
     public static final String MOD_NAME = "Pack Updater";
     public static final String VERSION = "0.1.0";
 
-    public static final String TEST_VERSION = "2.77.0";
-
     private static boolean needsUpdate = false;
     private static String newVersion = "UNKNOWN";
-    private static String CFLink = "https://jonathing.me/";
 
     public static final Logger LOGGER = LogManager.getLogger("Pack Updater");
 
@@ -48,7 +47,7 @@ public class PackUpdater
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event)
     {
-
+        ConfigHandler.loadConfig(event);
     }
 
     /**
@@ -59,7 +58,25 @@ public class PackUpdater
     {
         try
         {
-            checkForUpdate();
+            if (ConfigVariables.checkForUpdates && !(ConfigVariables.modpackName.equals("UNKNOWN")
+                    || ConfigVariables.versionJsonUrl.equals("UNKNOWN")
+                    || ConfigVariables.modpackUrl.equals("UNKNOWN")
+                    || ConfigVariables.currentVersion.equals("UNKNOWN")))
+            {
+                checkForUpdate();
+            }
+            else
+            {
+                if (!ConfigVariables.checkForUpdates)
+                {
+                    LOGGER.info("Pack Updater has been told not to check for updates. Skipping...");
+                }
+                else
+                {
+                    LOGGER.error("One or more of the config values in config/packupdater.cfg has not been configured!" +
+                            " Pack Updater will not check for updates!");
+                }
+            }
         }
         catch (IOException e)
         {
@@ -86,14 +103,13 @@ public class PackUpdater
 
     private static void checkForUpdate() throws IOException, NumberFormatException
     {
-        String json = readUrl("https://raw.githubusercontent.com/Rebirth-of-the-Night/Rebirth-Of-The-Night/"
-                + "master/pack_version_number.json");
+        String json = readUrl(ConfigVariables.versionJsonUrl);
 
         Gson gson = new Gson();
         PackVersion versionFromJSON = gson.fromJson(json, PackVersion.class);
 
         String[] newVersion = versionFromJSON.version.split("\\.");
-        String[] currentVersion = PackUpdater.TEST_VERSION.split("\\.");
+        String[] currentVersion = ConfigVariables.currentVersion.split("\\.");
 
         for (int i = 0; i < 3; i++)
         {
@@ -115,11 +131,6 @@ public class PackUpdater
     public static boolean doesNeedUpdate()
     {
         return needsUpdate;
-    }
-
-    public static String getCFLink()
-    {
-        return CFLink;
     }
 
     private static class PackVersion

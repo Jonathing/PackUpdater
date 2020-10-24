@@ -1,6 +1,7 @@
 package me.jonathing.minecraft.packupdater.client;
 
 import me.jonathing.minecraft.packupdater.PackUpdater;
+import me.jonathing.minecraft.packupdater.config.ConfigVariables;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiConfirmOpenLink;
 import net.minecraft.client.gui.GuiScreen;
@@ -32,7 +33,7 @@ public class UpdateGUI extends GuiScreen
     {
         ScaledResolution sr = new ScaledResolution(this.mc);
 
-        this.continueAnyway = new GuiButton(10, ((sr.getScaledWidth() / 2) - 90), 190, 180, 20, "Return to Main Menu");
+        this.continueAnyway = new GuiButton(10, ((sr.getScaledWidth() / 2) - 90), 190, 180, 20, "Continue to Main Menu");
         this.goToCurseForge = new GuiButton(11, ((sr.getScaledWidth() / 2) - 90), 160, 180, 20, "More Info (Opens Browser!)");
 
         this.buttonList.add(this.continueAnyway);
@@ -47,11 +48,9 @@ public class UpdateGUI extends GuiScreen
         String title = "An update is available for Rebirth of the Night!";
         String[] description;
 
-        description = (String.format("Rebirth of the Night has a new update: Version %s\n", PackUpdater.getNewVersion())
+        description = (String.format("%s has a new update: Version %s\n", ConfigVariables.modpackName, PackUpdater.getNewVersion())
                 + "Make sure you visit the modpack's CurseForge page soon to grab the latest\n"
-                + "update so you don't miss out on the new goodies the developers have added!\n\n"
-                + "A note from Jonathing: Although 99% of this mod is complete, I still need\n"
-                + "to add the configuration file, but other than that, it works!\n\n\n").split("\n");
+                + "update so you don't miss out on the new goodies the developers have added!\n\n\n").split("\n");
 
         ScaledResolution screenRes = new ScaledResolution(this.mc);
 
@@ -82,11 +81,11 @@ public class UpdateGUI extends GuiScreen
         {
             try
             {
-                openWebLink(new URI(PackUpdater.getCFLink()));
+                openWebLink(new URI(ConfigVariables.modpackUrl));
             }
             catch (URISyntaxException e)
             {
-                PackUpdater.LOGGER.error("Unable to open link!!!");
+                PackUpdater.LOGGER.error("Unable to open the CurseForge page! Maybe check your CurseForge URL in config/packupdater.cfg?");
                 e.printStackTrace();
             }
         }
