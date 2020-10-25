@@ -45,10 +45,10 @@ public class UpdateGUI extends GuiScreen
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        String title = "An update is available for Rebirth of the Night!";
+        String title = String.format("An update is available for %s!", ConfigVariables.modpackName);
         String[] description;
 
-        description = (String.format("%s has a new update: Version %s\n", ConfigVariables.modpackName, PackUpdater.getNewVersion())
+        description = (String.format("You have %s. New version is %s\n", ConfigVariables.currentVersion, PackUpdater.getNewVersion())
                 + "Make sure you visit the modpack's CurseForge page soon to grab the latest\n"
                 + "update so you don't miss out on the new goodies the developers have added!\n\n\n").split("\n");
 
@@ -101,10 +101,10 @@ public class UpdateGUI extends GuiScreen
             Object object = oclass.getMethod("getDesktop").invoke(null);
             oclass.getMethod("browse", URI.class).invoke(object, url);
         }
-        catch (Throwable throwable1)
+        catch (Throwable throwable)
         {
-            Throwable throwable = throwable1.getCause();
-            PackUpdater.LOGGER.error("Couldn't open link: {}", throwable == null ? "<UNKNOWN>" : throwable.getMessage());
+            Throwable e = throwable.getCause();
+            PackUpdater.LOGGER.error("Couldn't open link: {}", e == null ? "<UNKNOWN>" : e.getMessage());
         }
     }
 }

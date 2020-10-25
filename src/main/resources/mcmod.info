@@ -3,7 +3,7 @@
   "modid": "packupdater",
   "name": "Pack Updater",
   "description": "Checks a url for a JSON file for the latest version, and displays a GUI screen if an update has been found.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "mcversion": "1.12.2",
   "url": "https://www.curseforge.com/minecraft/mc-mods/mod-pack-update-checker",
   "updateUrl": "",

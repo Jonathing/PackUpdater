@@ -27,7 +27,7 @@ public class PackUpdater
 
     public static final String MOD_ID = "packupdater";
     public static final String MOD_NAME = "Pack Updater";
-    public static final String VERSION = "0.1.1";
+    public static final String VERSION = "0.1.2";
 
     private static boolean needsUpdate = false;
     private static String newVersion = "UNKNOWN";
@@ -81,14 +81,12 @@ public class PackUpdater
         catch (IOException e)
         {
             LOGGER.error("Unable to check for updates for the modpack! Is the URL in the config malformed," +
-                    " or is the version String in the URL not correctly formatted?");
-            e.printStackTrace();
+                    " or is the version String in the URL not correctly formatted?", e);
         }
         catch (NumberFormatException e)
         {
             LOGGER.error("Unable to parse the version number correctly!" +
-                    "Is the version element from the URL malformed?");
-            e.printStackTrace();
+                    "Is the version element from the URL malformed?", e);
         }
     }
 
@@ -108,16 +106,12 @@ public class PackUpdater
         Gson gson = new Gson();
         PackVersion versionFromJSON = gson.fromJson(json, PackVersion.class);
 
-        String[] newVersion = versionFromJSON.version.split("\\.");
-        String[] currentVersion = ConfigVariables.currentVersion.split("\\.");
+        String newVersion = versionFromJSON.version;
+        String currentVersion = ConfigVariables.currentVersion;
 
-        for (int i = 0; i < 3; i++)
+        if (!newVersion.equals(currentVersion))
         {
-            if (Integer.parseInt(newVersion[i]) > Integer.parseInt(currentVersion[i]))
-            {
-                needsUpdate = true;
-                break;
-            }
+            needsUpdate = true;
         }
 
         PackUpdater.newVersion = versionFromJSON.version;
